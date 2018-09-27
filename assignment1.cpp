@@ -7,7 +7,7 @@ void doTask ( int n, int id, int p) {
   
   	int mf = floor(n/p);
   	int from = 2 + id * mf;
-  	int to = id * mf + mf + 1;
+  	int to = from + mf - 1;
 
   	if (id == 3)
        	to++;
@@ -25,9 +25,10 @@ void doTask ( int n, int id, int p) {
 int main ( int argc, char *argv[] ) {
 	int id, p;
 	int n = 10;
-	int ierr = MPI_Init ( &argc, &argv );
-	ierr = MPI_Comm_size ( MPI_COMM_WORLD, &p );
-	ierr = MPI_Comm_rank ( MPI_COMM_WORLD, &id );
+	MPI_Init ( &argc, &argv );
+	MPI_Comm_size ( MPI_COMM_WORLD, &p );
+	MPI_Comm_rank ( MPI_COMM_WORLD, &id );
+	
 	doTask(n, id, p);
 
 	MPI_Finalize ( );
